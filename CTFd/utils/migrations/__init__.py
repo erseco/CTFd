@@ -25,6 +25,7 @@ from CTFd.models import (
     Users,
     db,
 )
+
 migrations = Migrate()
 
 
