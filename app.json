@@ -37,7 +37,7 @@
       "value": ""
     },
     "AWS_S3_ENDPOINT_URL": {
-      "description": "A URL pointing to a custom S3 implementation",
+      "description": "A URL pointing to a custom S3 implementation. Leave empty for default AWS S3 endpoint",
       "required": false,
       "value": ""
     }
