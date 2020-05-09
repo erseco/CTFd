@@ -36,7 +36,6 @@ def create_database():
     if url.drivername.startswith("mysql"):
         url.query["charset"] = "utf8mb4"
 
-
     # Creates database if the database does not exist
     try:
         exists = database_exists_util(url)
