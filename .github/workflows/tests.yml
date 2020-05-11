@@ -1,40 +1,30 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
+---
 name: CTFd CI
 
-on:
-  push:
-    paths:
-    - '**.py'
+on: [push, pull_request]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
-
-    # Service containers to run with `container-job`
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
         image: postgres
-        # Provide the password for postgres
+        ports:
+          - 5432:5432
         env:
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: ctfd
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
       mysql:
         image: mysql
         ports:
           - 3306:3306
-
       redis:
         image: redis
         ports:
@@ -57,16 +47,20 @@ jobs:
         run: |
             python -m pip install --upgrade pip
             python -m pip install -r development.txt
-            yarn install --non-interactive
-            yarn global add prettier@1.17.0
+            sudo yarn install --non-interactive
+            sudo yarn global add prettier@1.17.0
+            sudo python3.6 -m pip install black==19.3b0
 
-      - name: Create postgres database
-        run: psql -c 'create database ctfd;' -U postgres
       - name: Lint
         run: make lint
 
       - name: Test
-        run: make test
+        run: |
+            sudo rm -f /etc/boto.cfg
+            make test
+        env:
+            AWS_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
+            AWS_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 
       - name: Coverage
         run: codecov
