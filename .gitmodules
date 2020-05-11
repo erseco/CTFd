@@ -1,0 +1,3 @@
+[submodule "CTFd/plugins/CTFd-dropbox-plugin"]
+	path = CTFd/plugins/CTFd-dropbox-plugin
+	url = https://github.com/erseco/CTFd-dropbox-plugin.git
