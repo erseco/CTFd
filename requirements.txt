@@ -27,3 +27,4 @@ boto3==1.10.39
 marshmallow==2.20.2
 psycopg2==2.7.5
 psycopg2-binary==2.7.5
+-r CTFd/plugins/CTFd-dropbox-plugin/requirements.txt
