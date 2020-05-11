@@ -8,7 +8,6 @@ from sqlalchemy.engine.url import make_url
 from sqlalchemy_utils import create_database as create_database_util
 from sqlalchemy_utils import database_exists as database_exists_util
 from sqlalchemy_utils import drop_database as drop_database_util
-from CTFd.utils.security.auth import logout_user
 from CTFd.utils.uploads import delete_file
 from CTFd.cache import cache, clear_config, clear_standings, clear_pages
 from CTFd.models import (
@@ -39,6 +38,10 @@ def create_database():
 
     # Creates database if the database does not exist
     try:
+        # If the user don't have permission to access to "postres" databasen  this
+        # will fail: https://github.com/kvesteri/sqlalchemy-utils/pull/372
+        # in that case we asume that the database was previously created and we can't
+        # drop or create the database
         exists = database_exists_util(url)
     except Exception:
         exists = True
@@ -51,8 +54,8 @@ def create_database():
     return url
 
 
-def clear_database():
-
+def truncate_database():
+    # delete all table data (but keep tables)
     _pages = Pages.query.all()
     for p in _pages:
         for f in p.files:
@@ -84,8 +87,6 @@ def clear_database():
     cache.clear()
 
     db.session.commit()
-
-    logout_user()
 
 
 def drop_database():
