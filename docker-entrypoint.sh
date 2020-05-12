@@ -41,9 +41,6 @@ if [ -n "$DATABASE_URL" ]
     fi
 fi
 
-# Initialize database
-python3 manage.py db upgrade
-
 # Start CTFd
 echo "Starting CTFd"
 exec gunicorn "CTFd:create_app()" \

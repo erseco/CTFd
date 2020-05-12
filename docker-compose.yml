@@ -6,7 +6,7 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - 8000:8000
     environment:
       - UPLOAD_FOLDER=/var/uploads
       - DATABASE_URL=postgresql+psycopg2://ctfd:ctfd@db:5432/ctfd
@@ -27,9 +27,8 @@ services:
     image: postgres:alpine
     restart: unless-stopped
     environment:
-      - POSTGRES_PASSWORD=ctfd
       - POSTGRES_USER=ctfd
-      - POSTGRES_DB=ctfd
+      - POSTGRES_PASSWORD=ctfd
     volumes:
       - postgres:/var/lib/postgresql/data
 
