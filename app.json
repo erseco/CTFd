@@ -19,27 +19,17 @@
     "UPLOAD_PROVIDER": {
       "description": "Specifies the service that CTFd should use to store files",
       "required": true,
-      "value": "s3"
+      "value": "dropbox"
     },
-    "AWS_ACCESS_KEY_ID": {
-      "description": "AWS access token used to authenticate to the S3 bucket",
+    "DROPBOX_OAUTH2_TOKEN": {
+      "description": "Dropbox developer oauth2 token used to authenticate to your Dropbox account",
       "required": true,
       "value": ""
     },
-    "AWS_SECRET_ACCESS_KEY": {
-      "description": "AWS secret token used to authenticate to the S3 bucket.",
-      "required": true,
-      "value": ""
-    },
-    "AWS_S3_BUCKET": {
-      "description": "The unique identifier for your S3 bucket",
-      "required": true,
-      "value": ""
-    },
-    "AWS_S3_ENDPOINT_URL": {
-      "description": "A URL pointing to a custom S3 implementation. Leave empty for default AWS S3 endpoint",
+    "DROPBOX_ROOT_PATH": {
+      "description": "Dropbox root path where to store files.",
       "required": false,
-      "value": ""
-    }
+      "value": "/CTFd"
+    },
   }
 }
