@@ -30,6 +30,6 @@
       "description": "Dropbox root path where to store files.",
       "required": false,
       "value": "/CTFd"
-    },
+    }
   }
 }
