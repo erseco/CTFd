@@ -62,6 +62,7 @@ class Config(object):
         e.g. redis://user:password@localhost:6379
         http://pythonhosted.org/Flask-Caching/#configuring-flask-caching
     """
+    DEBUG = True
     SECRET_KEY = os.getenv("SECRET_KEY") or key
     DATABASE_URL = os.getenv("DATABASE_URL") or "sqlite:///{}/ctfd.db".format(
         os.path.dirname(os.path.abspath(__file__))
