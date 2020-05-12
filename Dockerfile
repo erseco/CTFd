@@ -32,14 +32,12 @@ RUN apk add --no-cache \
         py3-gunicorn \
         py3-netaddr \
         py3-greenlet \
-        postgresql-client \
     && \
         apk add --no-cache --virtual .build-deps  \
             build-base \
             python3-dev \
             libffi-dev \
             openssl-dev \
-            postgresql-dev \
     && \
         pip3 install -r requirements.txt \
     && \
