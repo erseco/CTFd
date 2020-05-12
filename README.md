@@ -1,4 +1,14 @@
-## This is a fork of the original [CTFd](https://github.com/CTFd/CTFd/)
+## WARNING: This is a fork of the original [CTFd](https://github.com/CTFd/CTFd/)
+
+This project is a fork of the original CTFd code to be deployable on Heroku using `dropbox` to upload files.
+
+- Hosting CTFd on Heroku is intended for testing purposes.
+- Heroku provides a free PostgreSQL database with a limitation of 10K rows.
+- Heroku provides a free Redis database with a limit of 25MB.
+- Heroku provides an ephemeral filesystem, so you must configure `dropbox` as UPLOAD_PROVIDER, you can also use `s3` to upload files.
+
+This project also defines lightweight Docker images to reduce memory usage: https://hub.docker.com/r/erseco/ctfd
+
 ![](https://github.com/erseco/CTFd/blob/master/CTFd/themes/core/static/img/logo.png?raw=true)
 ====
 
