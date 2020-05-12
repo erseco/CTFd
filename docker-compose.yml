@@ -2,53 +2,40 @@ version: '2'
 
 services:
   ctfd:
+    image: erseco/ctfd
     build: .
-    user: root
-    restart: always
+    restart: unless-stopped
     ports:
       - "8000:8000"
     environment:
       - UPLOAD_FOLDER=/var/uploads
-      - DATABASE_URL=mysql+pymysql://root:ctfd@db/ctfd
+      - DATABASE_URL=postgresql+psycopg2://ctfd:ctfd@db:5432/ctfd
       - REDIS_URL=redis://cache:6379
       - WORKERS=1
+      - MAX_REQUESTS=200
       - LOG_FOLDER=/var/log/CTFd
       - ACCESS_LOG=-
       - ERROR_LOG=-
+    depends_on:
+      - db
+      - cache
     volumes:
       - .data/CTFd/logs:/var/log/CTFd
       - .data/CTFd/uploads:/var/uploads
-      - .:/opt/CTFd:ro
-    depends_on:
-      - db
-    networks:
-        default:
-        internal:
 
   db:
-    image: mariadb:10.4
-    restart: always
+    image: postgres:alpine
+    restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=ctfd
-      - MYSQL_USER=ctfd
-      - MYSQL_PASSWORD=ctfd
-      - MYSQL_DATABASE=ctfd
+      - POSTGRES_PASSWORD=ctfd
+      - POSTGRES_USER=ctfd
+      - POSTGRES_DB=ctfd
     volumes:
-      - .data/mysql:/var/lib/mysql
-    networks:
-        internal:
-    # This command is required to set important mariadb defaults
-    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
+      - postgres:/var/lib/postgresql/data
 
   cache:
     image: redis:4
-    restart: always
-    volumes:
-    - .data/redis:/data
-    networks:
-        internal:
+    restart: unless-stopped
 
-networks:
-    default:
-    internal:
-        internal: true
+volumes:
+  postgres: null
