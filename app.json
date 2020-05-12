@@ -17,7 +17,7 @@
   ],
   "env": {
     "UPLOAD_PROVIDER": {
-      "description": "Specifies the service that CTFd should use to store files",
+      "description": "Specifies the service that CTFd should use to store files.",
       "required": true,
       "value": "dropbox"
     },
