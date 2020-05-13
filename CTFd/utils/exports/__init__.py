@@ -19,9 +19,6 @@ from CTFd.models import db, get_class_by_tablename
 from CTFd.utils import get_app_config, set_config
 from CTFd.utils.exports.freeze import freeze_export
 from CTFd.utils.migrations import (
-    create_database,
-    drop_database,
-    truncate_database,
     get_current_revision,
     stamp_latest_revision,
 )
@@ -124,10 +121,7 @@ def import_ctf(backup, erase=True):
         )
 
     if erase:
-        if drop_database():
-            create_database()
-        else:
-            truncate_database()
+        app.db.drop_all()
         # We explicitly do not want to upgrade or stamp here.
         # The import will have this information.
 
@@ -168,16 +162,16 @@ def import_ctf(backup, erase=True):
 
     members = first + members
 
-    upgrade(revision=alembic_version)
+    # upgrade(revision=alembic_version)
 
     # Create tables created by plugins
     try:
         app.db.create_all()
     except OperationalError as e:
-        if not postgres:
-            raise e
-        else:
-            print("Allowing error during app.db.create_all() due to Postgres")
+        # if not postgres:
+        raise e
+        # else:
+        #     print("Allowing error during app.db.create_all() due to Postgres")
 
     members.remove("db/alembic_version.json")
 
