@@ -3,26 +3,10 @@ import os
 from alembic.migration import MigrationContext
 from flask import current_app as app
 from flask_migrate import Migrate, stamp
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 from sqlalchemy.engine.url import make_url
 from sqlalchemy_utils import create_database as create_database_util
 from sqlalchemy_utils import database_exists as database_exists_util
-from CTFd.utils.uploads import delete_file
-from CTFd.cache import cache, clear_config, clear_standings, clear_pages
-from CTFd.models import (
-    Awards,
-    Challenges,
-    Configs,
-    Notifications,
-    Pages,
-    Solves,
-    Submissions,
-    Teams,
-    Tracking,
-    Unlocks,
-    Users,
-    db,
-)
 
 migrations = Migrate()
 
