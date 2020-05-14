@@ -244,10 +244,7 @@ class Users(db.Model):
     verified = db.Column(db.Boolean, default=False)
 
     # Relationship for Teams
-    # use_alter=True along with name='' adds this foreign key after Teams has been created to avoid circular dependency
-    team_id = db.Column(
-        db.Integer, db.ForeignKey("teams.id", use_alter=True, name="users_team_id_fkey")
-    )
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
 
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 

@@ -173,8 +173,7 @@ def create_app(config="CTFd.config.Config"):
 
         # Register database
         db.init_app(app)
-        # db.create_all()
-        # exit()
+
         # Register Flask-Migrate
         migrations.init_app(app, db)
 
