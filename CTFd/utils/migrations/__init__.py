@@ -59,7 +59,10 @@ def truncate_database():
     _pages = Pages.query.all()
     for p in _pages:
         for f in p.files:
-            delete_file(file_id=f.id)
+            try:
+                delete_file(file_id=f.id)
+            except Exception:
+                print("Cant delete file")
 
     Pages.query.delete()
 
@@ -68,7 +71,10 @@ def truncate_database():
     _challenges = Challenges.query.all()
     for c in _challenges:
         for f in c.files:
-            delete_file(file_id=f.id)
+            try:
+                delete_file(file_id=f.id)
+            except Exception:
+                print("Cant delete file")
     Challenges.query.delete()
 
     Users.query.delete()
